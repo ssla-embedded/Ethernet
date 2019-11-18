@@ -4,75 +4,79 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="450dp"
-        android:layout_height="150dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" >
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
-        <GridLayout
-            android:id="@+id/grid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnCount="2"
-            android:rowCount="1" >
+        <ImageButton
+            android:id="@+id/btnCheck"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btncheck_background" />
 
-            <Button
-                android:id="@+id/btnCheck"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_column="0"
-                android:layout_gravity="left|top"
-                android:layout_row="0"
-                android:clickable="true"
-                android:background="@drawable/btncheck_background" />
+        <ImageButton
+            android:id="@+id/btnConfig"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btnconfig_background" />
 
-            <Button
-                android:id="@+id/btnAdvanced"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_column="1"
-                android:layout_gravity="right|center_vertical"
-                android:layout_row="0"
-                android:background="@drawable/btnadvanced_background"
-                android:clickable="true"
-                android:focusable="true" />
+        <ImageButton
+            android:id="@+id/btnAdvanced"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btnadvanced_background" />
 
-            <Button
-                android:id="@+id/btnConfig"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_column="1"
-                android:layout_gravity="left|top"
-                android:layout_row="0"
-                android:background="@drawable/btnconfig_background"
-                android:clickable="true"
-                android:focusable="true" />
-
-        </GridLayout>
+        <ImageButton
+            android:id="@+id/btnPower"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_power" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:orientation="vertical"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/ic_log"
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
+            android:layout_height="50dp"
             android:src="@drawable/ic_log" />
 
         <TextView
             android:id="@+id/tvConfig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="false"
             android:layout_gravity="right|top"
             android:scrollbars="vertical"
+            android:singleLine="false"
             android:textSize="16sp" />
 
     </LinearLayout>

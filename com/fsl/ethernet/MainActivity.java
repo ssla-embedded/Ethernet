@@ -41,10 +41,13 @@ import android.content.Intent;
 import android.os.SystemProperties;
 
 public class MainActivity extends Activity {
+    private Context context;
     private EthernetEnabler mEthEnabler;
     private EthernetConfigDialog mEthConfigDialog;
-    private Button mBtnConfig;
-    private Button mBtnCheck;
+    private ImageButton mBtnConfig;
+    private ImageButton mBtnCheck;
+    private ImageButton mBtnAdvanced;
+    private ImageButton mBtnPower;
     private EthernetDevInfo  mSaveConfig;
     private ConnectivityManager  mConnMgr;
     private String TAG = "EthernetMainActivity";
@@ -52,7 +55,6 @@ public class MainActivity extends Activity {
     private boolean shareprefences_flag = false;
     private boolean first_run = true;
     public static final String FIRST_RUN = "ethernet";
-    private Button mBtnAdvanced;
     private EthernetAdvDialog mEthAdvancedDialog;
     private final BroadcastReceiver mEthernetReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -86,6 +88,7 @@ public class MainActivity extends Activity {
         addListenerOnBtnConfig();
         addListenerOnBtnCheck();
         addListenerOnBtnAdvanced();
+        addListenerOnBtnPower();
         mConnMgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -101,7 +104,7 @@ public class MainActivity extends Activity {
     }
 
     public void addListenerOnBtnConfig() {
-        mBtnConfig = (Button) findViewById(R.id.btnConfig);
+        mBtnConfig = findViewById(R.id.btnConfig);
 
         mBtnConfig.setOnClickListener(new OnClickListener() {
             @Override
@@ -114,9 +117,9 @@ public class MainActivity extends Activity {
     }
 
     public void addListenerOnBtnCheck() {
-        mBtnConfig = (Button) findViewById(R.id.btnCheck);
+        mBtnCheck = findViewById(R.id.btnCheck);
 
-        mBtnConfig.setOnClickListener(new OnClickListener() {
+        mBtnCheck.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView text = (TextView) findViewById(R.id.tvConfig);
@@ -151,7 +154,7 @@ public class MainActivity extends Activity {
     }
 
     public void addListenerOnBtnAdvanced() {
-        mBtnAdvanced = (Button) findViewById(R.id.btnAdvanced);
+        mBtnAdvanced = findViewById(R.id.btnAdvanced);
 
         mBtnAdvanced.setOnClickListener(new OnClickListener() {
             @Override
@@ -162,6 +165,50 @@ public class MainActivity extends Activity {
                     mEthEnabler.setmEthAdvancedDialog(mEthAdvancedDialog);
                     mEthAdvancedDialog.show();
                 }
+            }
+        });
+    }
+
+    public void addListenerOnBtnPower() {
+        mBtnPower = findViewById(R.id.btnPower);
+
+        mBtnPower.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // setup the alert builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Power Options");
+                builder.setMessage("Select your power options.");
+
+                // add the buttons
+                builder.setPositiveButton("Power Off", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //Power Off Command
+                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        if (null != pm)
+                            pm.reboot("-p");
+                    }
+                });
+                builder.setNeutralButton("Restart", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //Restart Command
+                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        if (null != pm)
+                            pm.reboot(null);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                // create and show the alert dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
