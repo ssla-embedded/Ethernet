@@ -16,11 +16,14 @@
 
 package com.fsl.ethernet;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.PowerManager;
 import android.view.Menu;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.Context;
