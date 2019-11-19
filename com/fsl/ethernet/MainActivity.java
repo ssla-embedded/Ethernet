@@ -19,10 +19,7 @@ package com.fsl.ethernet;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.IPowerManager;
 import android.os.PowerManager;
-import android.os.RemoteException;
-import android.os.ServiceManager;
 import android.view.Menu;
 import android.util.Log;
 import android.view.View;
@@ -191,23 +188,9 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Power Off Command
-                        Thread thr = new Thread("ShutdownActivity") {
-                            @Override
-                            public void run() {
-                                IPowerManager pm = IPowerManager.Stub.asInterface(ServiceManager.getService(Context.POWER_SERVICE));
-                                try {
-                                       pm.shutdown(true, false);
-                                } catch (RemoteException e) {
-                                }
-                            }
-                        };
-                        thr.start();
-                        finish();
-                        // Wait for us to tell the power manager to shutdown.
-                        try {
-                            thr.join();
-                        } catch (InterruptedException e) {
-                        }
+                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        if (null != pm)
+                            pm.reboot("-p");
                     }
                 });
                 builder.setNeutralButton("Restart", new DialogInterface.OnClickListener() {
