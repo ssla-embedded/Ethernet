@@ -44,7 +44,6 @@ import android.content.Intent;
 import android.os.SystemProperties;
 
 public class MainActivity extends Activity {
-    private Context context;
     private EthernetEnabler mEthEnabler;
     private EthernetConfigDialog mEthConfigDialog;
     private ImageButton mBtnConfig;
@@ -188,7 +187,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Power Off Command
-                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                         if (null != pm)
                             pm.reboot("-p");
                     }
@@ -197,7 +196,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Restart Command
-                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                         if (null != pm)
                             pm.reboot(null);
                     }
